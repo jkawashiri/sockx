@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Shoe Details</h1>
+
+<p>Name: {{ shoe.name }}</p>
+<p>Brand: {{ shoe.brand }}</p>
+<p>Size: {{ shoe.size }}</p>
+<p>Colorway: {{ shoe.colorway }}</p>
+<p>Description: {{ shoe.description }}</p>
+<p>Release Date: {{ shoe.release_date }}</p>
+<p>Price: ${{ shoe.price }}</p>
+
+
+{% endblock %}

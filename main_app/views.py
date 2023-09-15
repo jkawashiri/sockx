@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Shoe
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
@@ -19,6 +20,29 @@ class ShoeList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
        return Shoe.objects.filter(user=self.request.user)
+    
+class ShoeDetail(LoginRequiredMixin, DetailView):
+    model = Shoe
+    template_name = 'shoes/detail.html'
+    context_object_name = 'shoe'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     shoe = self.object
+    #     id_list = shoe.products.all().values_list('id')
+    #     unrelated_products = Product.objects.exclude(id__in=id_list)
+    #     context['bid_form'] = BidForm()
+    #     context['products'] = unrelated_products
+    #     return context
+    
+class ShoeCreate(LoginRequiredMixin, CreateView):
+    model = Shoe
+    fields = ['name', 'brand', 'size', 'colorway', 'description', 'release_date', 'price']
+    success_url = '/shoes'
+
+    def form_valid(self, form):
+       form.instance.user = self.request.user
+       return super().form_valid(form)
 
 def signup(request):
   error_message = ''
