@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Shoe
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
@@ -43,6 +43,15 @@ class ShoeCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
        form.instance.user = self.request.user
        return super().form_valid(form)
+    
+class ShoeUpdate(UpdateView):
+   model = Shoe
+   fields = ['name', 'brand', 'size', 'colorway', 'description', 'release_date', 'price']
+
+
+class ShoeDelete(DeleteView):
+   model = Shoe
+   success_url = '/shoes'
 
 def signup(request):
   error_message = ''
@@ -57,4 +66,5 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
 
