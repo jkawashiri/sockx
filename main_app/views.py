@@ -1,10 +1,24 @@
 from django.shortcuts import render
+from .models import Shoe
+from django.views.generic import ListView
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
+
+def about(request):
+  return render(request, 'about.html')
+
+class ShoeList(LoginRequiredMixin, ListView):
+    model = Shoe
+    template_name = 'shoes/index.html'
+    context_object_name = 'shoes'
+
+    def get_queryset(self):
+       return Shoe.objects.filter(user=self.request.user)
 
 def signup(request):
   error_message = ''
@@ -19,3 +33,4 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
+
