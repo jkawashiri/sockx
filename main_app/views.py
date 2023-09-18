@@ -19,9 +19,6 @@ class ShoeList(LoginRequiredMixin, ListView):
     model = Shoe
     template_name = 'shoes/index.html'
     context_object_name = 'shoes'
-
-    def get_queryset(self):
-       return Shoe.objects.filter(user=self.request.user)
     
 class ShoeDetail(LoginRequiredMixin, DetailView):
     model = Shoe
