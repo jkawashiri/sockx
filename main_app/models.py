@@ -16,12 +16,9 @@ class Shoe(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.id})'
-<<<<<<< HEAD
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
-=======
->>>>>>> main
 
 
 
