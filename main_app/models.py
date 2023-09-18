@@ -1,7 +1,16 @@
 from django.db import models
+from django.utils import timezone
 from django.urls import reverse
-
+from datetime import date
 from django.contrib.auth.models import User
+
+RATING = (
+    (1, '1'),
+    (2, '2'),
+    (3, '3'),
+    (4, '4'),
+    (5, '5'),
+)
 
 # Create your models here.
 class Shoe(models.Model):
@@ -22,8 +31,8 @@ class Shoe(models.Model):
     
 class Review(models.Model):
     review = models.TextField(max_length=200)
-    date = models.DateField()
-    rating = models.IntegerField()
+    date = models.DateField(default=timezone.now())
+    rating = models.IntegerField(choices=RATING)
 
     shoe = models.ForeignKey(Shoe, on_delete=models.CASCADE)
 
