@@ -19,6 +19,20 @@ class Shoe(models.Model):
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
+    
+class Review(models.Model):
+    review = models.TextField(max_length=200)
+    date = models.DateField()
+    rating = models.IntegerField()
+
+    shoe = models.ForeignKey(Shoe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.date} - {self.rating} - {self.review}"
+    
+    class Meta:
+        ordering = ['-date']
+
 
 
 
