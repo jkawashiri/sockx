@@ -8,9 +8,6 @@ urlpatterns = [
     path('shoes/', views.ShoeList.as_view(), name='index'),
     path('shoes/<int:pk>/', views.ShoeDetail.as_view(), name='detail'),
     path('shoes/create/', views.ShoeCreate.as_view(), name='shoes_create'),
-<<<<<<< HEAD
     path('shoes/<int:pk>/update/', views.ShoeUpdate.as_view(), name='shoes_update'),
     path('shoes/<int:pk>/delete/', views.ShoeDelete.as_view(), name='shoes_delete'),
-=======
->>>>>>> main
 ]
