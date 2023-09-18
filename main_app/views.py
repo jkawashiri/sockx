@@ -4,7 +4,9 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from .forms import ReviewForm
 
 # Create your views here.
 def home(request):
@@ -26,14 +28,14 @@ class ShoeDetail(LoginRequiredMixin, DetailView):
     template_name = 'shoes/detail.html'
     context_object_name = 'shoe'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     shoe = self.object
-    #     id_list = shoe.products.all().values_list('id')
-    #     unrelated_products = Product.objects.exclude(id__in=id_list)
-    #     context['bid_form'] = BidForm()
-    #     context['products'] = unrelated_products
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        shoe = self.object
+        # id_list = shoe.products.all().values_list('id')
+        # unrelated_products = Product.objects.exclude(id__in=id_list)
+        context['review_form'] = ReviewForm()
+        # context['products'] = unrelated_products
+        return context
     
 class ShoeCreate(LoginRequiredMixin, CreateView):
     model = Shoe
@@ -52,6 +54,15 @@ class ShoeUpdate(UpdateView):
 class ShoeDelete(DeleteView):
    model = Shoe
    success_url = '/shoes'
+
+@login_required
+def add_review(request, shoe_id):
+   form = ReviewForm(request.POST)
+   if form.is_valid():
+        new_review = form.save(commit=False)
+        new_review.shoe_id = shoe_id
+        new_review.save()
+   return redirect('detail', pk=shoe_id)
 
 def signup(request):
   error_message = ''
