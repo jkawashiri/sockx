@@ -33,6 +33,7 @@ class Review(models.Model):
     review = models.TextField(max_length=200)
     date = models.DateField(default=timezone.now())
     rating = models.IntegerField(choices=RATING)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     shoe = models.ForeignKey(Shoe, on_delete=models.CASCADE)
 
@@ -41,6 +42,20 @@ class Review(models.Model):
     
     class Meta:
         ordering = ['-date']
+
+class Bid(models.Model):
+    date = models.DateField(default=timezone.now())
+    amount = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    shoe = models.ForeignKey(Shoe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Placed bid of {self.amount} on {self.date}"
+    
+    class Meta:
+        ordering = ['-amount']
+
 
 
 

@@ -3,6 +3,7 @@
 
 <h1>Shoe Details</h1>
 
+<p>User: {{ shoe.user }}</p>
 <p>Name: {{ shoe.name }}</p>
 <p>Brand: {{ shoe.brand }}</p>
 <p>Size: {{ shoe.size }}</p>
@@ -23,6 +24,7 @@
     {% if shoe.review_set.all %}
         <thead>
             <tr>
+                <th>User</th>
                 <th>Date</th>
                 <th>Rating</th>
                 <th>Review</th>
@@ -31,6 +33,7 @@
         <tbody>
         {% for review in shoe.review_set.all %}
             <tr>
+                <td>{{review.user}}</td>
                 <td>{{review.date}}</td>
                 <td>{{review.rating}}</td>
                 <td>{{review.review}}</td>
@@ -39,6 +42,34 @@
         </tbody>
     {% else %}
         <div>No Reviews Yet</div>
+    {% endif %}
+</table>
+
+<table>
+    <form action="{% url 'add_bid' shoe.id %}" method="POST">
+        {% csrf_token %}
+        {{ bid_form.as_p }}
+        <input type="submit" class="btn" value="Add Bid">
+    </form>
+    {% if shoe.bid_set.all %}
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Date</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bid in shoe.bid_set.all %}
+            <tr>
+                <td>{{bid.user}}</td>
+                <td>{{bid.date}}</td>
+                <td>${{bid.amount}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    {% else %}
+        <div>No Bids Yet</div>
     {% endif %}
 </table>
 
