@@ -48,7 +48,6 @@ class ShoeUpdate(UpdateView):
    model = Shoe
    fields = ['name', 'brand', 'size', 'colorway', 'description', 'release_date', 'price']
 
-
 class ShoeDelete(DeleteView):
    model = Shoe
    success_url = '/shoes'
