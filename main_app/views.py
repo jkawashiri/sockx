@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .forms import ReviewForm
+from .forms import ReviewForm, BidForm
 
 # Create your views here.
 def home(request):
@@ -27,10 +27,11 @@ class ShoeDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        shoe = self.object
+        # shoe = self.object
         # id_list = shoe.products.all().values_list('id')
         # unrelated_products = Product.objects.exclude(id__in=id_list)
         context['review_form'] = ReviewForm()
+        context['bid_form'] = BidForm()
         # context['products'] = unrelated_products
         return context
     
@@ -58,7 +59,18 @@ def add_review(request, shoe_id):
    if form.is_valid():
         new_review = form.save(commit=False)
         new_review.shoe_id = shoe_id
+        new_review.user = request.user
         new_review.save()
+   return redirect('detail', pk=shoe_id)
+
+@login_required
+def add_bid(request, shoe_id):
+   form = BidForm(request.POST)
+   if form.is_valid():
+      new_bid = form.save(commit=False)
+      new_bid.shoe_id = shoe_id
+      new_bid.user = request.user
+      new_bid.save()
    return redirect('detail', pk=shoe_id)
 
 def signup(request):
