@@ -61,6 +61,11 @@ class ShoeUpdate(UpdateView):
    model = Shoe
    fields = ['name', 'brand', 'size', 'colorway', 'description', 'release_date', 'price']
 
+   def get_form(self, form_class=None):
+      form = super().get_form(form_class)
+      form.fields['size'].initial = self.object.size
+      return form
+
 class ShoeDelete(DeleteView):
    model = Shoe
    success_url = '/shoes'
