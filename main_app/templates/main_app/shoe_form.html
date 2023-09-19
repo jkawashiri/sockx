@@ -11,6 +11,20 @@
         {% csrf_token %}
         <table class="form-table">
             {{ form }}
+            <!-- <tr>
+                <th><label for="{{ form.size.id_for_label }}">Size:</label></th>
+                <td>
+                    <select name="{{ form.size.name }}" id="{{ form.size.id_for_label }}">
+                        {% for choice_value, choice_label in form.size.field.choices %}
+                            <option value="{{ choice_value }}"
+                                {% if choice_value == object.size %}
+                                    selected="selected"
+                                {% endif %}
+                            >{{ choice_label }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr> -->
         </table>
         <input type="submit" value="Submit!" class="btn">
     </form>

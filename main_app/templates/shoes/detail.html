@@ -9,8 +9,10 @@
 <p>Description: {{ shoe.description }}</p>
 <p>Release Date: {{ shoe.release_date }}</p>
 <p>Price: ${{ shoe.price }}</p>
-<a href="{% url 'shoes_update' shoe.id %}">EDIT</a>
-<a href="{% url 'shoes_delete' shoe.id %}">DELETE</a>
+{% if user == shoe.user %}
+    <a href="{% url 'shoes_update' shoe.id %}">EDIT</a>
+    <a href="{% url 'shoes_delete' shoe.id %}">DELETE</a>
+{% endif %}
 
 <br>
 <table>
@@ -35,6 +37,7 @@
                 <td>{{review.date}}</td>
                 <td>{{review.rating}}</td>
                 <td>{{review.review}}</td>
+                {% if user == review.user %}
                 <td>
                     <button>
                         <a href="{% url 'delete_review' shoe.id review.id %}">
@@ -42,6 +45,7 @@
                         </a>
                     </button>
                 </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
@@ -70,6 +74,7 @@
                 <td>{{bid.user}}</td>
                 <td>{{bid.date}}</td>
                 <td>${{bid.amount}}</td>
+                {% if user == bid.user %}
                 <td>
                     <button>
                         <a href="{% url 'delete_bid' shoe.id bid.id %}">
@@ -77,6 +82,7 @@
                         </a>
                     </button>
                 </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
