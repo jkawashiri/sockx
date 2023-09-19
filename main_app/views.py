@@ -9,8 +9,10 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import ReviewForm, BidForm
 
 # Create your views here.
-def home(request):
-    return render(request, 'home.html')
+class Home(ListView):
+   model = Shoe
+   template_name = 'home.html'
+   context_object_name = 'shoes'
 
 def about(request):
   return render(request, 'about.html')
@@ -27,6 +29,9 @@ class ShoeList(LoginRequiredMixin, ListView):
     model = Shoe
     template_name = 'shoes/index.html'
     context_object_name = 'shoes'
+
+    def get_queryset(self):
+       return Shoe.objects.filter(user=self.request.user)
     
 class ShoeDetail(LoginRequiredMixin, DetailView):
     model = Shoe
