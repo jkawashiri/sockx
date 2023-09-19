@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<center>
+    {% if searched %}
+
+        <h1>Browse results for {{ searched }}</h1>
+        <br/>
+        {% for shoe in shoes %}
+             {{ shoe }}<br/>
+        {% endfor %}
+         
+
+    {% else %}
+
+        <h1>Search for shoes by typing the shoe that you want</h1> 
+
+    {% endif %}
+
+</center>
+
+
+
+{% endblock %}
