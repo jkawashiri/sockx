@@ -13,6 +13,18 @@
     <a href="{% url 'shoes_update' shoe.id %}">EDIT</a>
     <a href="{% url 'shoes_delete' shoe.id %}">DELETE</a>
 {% endif %}
+{% for photo in shoe.photo_set.all %}
+    <img src="{{photo.url}}">
+{% empty %}
+    <div>No Photos Uploaded</div>
+{% endfor %}
+
+<form action="{% url 'add_photo' shoe.id %}" enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    <br><br>
+    <button type="submit" class="btn">Upload Photo</button>
+</form>
 
 <br>
 <table>
