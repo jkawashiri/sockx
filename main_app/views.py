@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .models import Shoe
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Shoe, Review, Bid   
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
@@ -63,6 +63,12 @@ def add_review(request, shoe_id):
    return redirect('detail', pk=shoe_id)
 
 @login_required
+def delete_review(request, shoe_id, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    review.delete()
+    return redirect('detail', pk=shoe_id)
+    
+@login_required
 def add_bid(request, shoe_id):
    form = BidForm(request.POST)
    if form.is_valid():
@@ -70,6 +76,12 @@ def add_bid(request, shoe_id):
       new_bid.shoe_id = shoe_id
       new_bid.user = request.user
       new_bid.save()
+   return redirect('detail', pk=shoe_id)
+
+@login_required
+def delete_bid(request, shoe_id, bid_id):
+   bid = get_object_or_404(Bid, pk=bid_id)
+   bid.delete()
    return redirect('detail', pk=shoe_id)
 
 def signup(request):

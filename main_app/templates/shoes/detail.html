@@ -37,6 +37,13 @@
                 <td>{{review.date}}</td>
                 <td>{{review.rating}}</td>
                 <td>{{review.review}}</td>
+                <td>
+                    <button>
+                        <a href="{% url 'delete_review' shoe.id review.id %}">
+                            X
+                        </a>
+                    </button>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -65,6 +72,13 @@
                 <td>{{bid.user}}</td>
                 <td>{{bid.date}}</td>
                 <td>${{bid.amount}}</td>
+                <td>
+                    <button>
+                        <a href="{% url 'delete_bid' shoe.id bid.id %}">
+                            X
+                        </a>
+                    </button>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
