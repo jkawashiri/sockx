@@ -15,6 +15,14 @@ def home(request):
 def about(request):
   return render(request, 'about.html')
 
+def search_shoes(request):
+   if request.method == "POST":
+      searched = request.POST['searched']
+      shoes = Shoe.objects.filter(name__contains=searched)
+      return render(request, 'shoes/search_shoes.html', {'searched':searched, 'shoes':shoes})
+   else: 
+      return render(request, 'shoes/search_shoes.html', {})
+
 class ShoeList(LoginRequiredMixin, ListView):
     model = Shoe
     template_name = 'shoes/index.html'

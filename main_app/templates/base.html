@@ -16,6 +16,14 @@
         <nav>
             <a href="{% url 'home' %}">SockX</a>
             <a href="{% url 'about' %}">About</a>
+            <form class="d-flex" method="POST" action="{% url 'search_shoes' %}">
+              {% csrf_token %}
+
+              <input class="form-control me-2"
+               type="search" placeholder="Search Shoes" aria-label="Search" name="searched">
+              <button class="btn
+              btn-outline-secondary" type="submit">Search</button> 
+            </form>
             {% if user.is_authenticated %}
                 <a href="{% url 'shoes_create' %}">Add a Shoe</a>
                 <a href="{% url 'index' %}">All Shoes</a>
