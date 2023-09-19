@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Shoe Details</h1>
+<h1>{{ shoe.brand }} {{ shoe.name }}</h1>
 
 <p>User: {{ shoe.user }}</p>
-<p>Name: {{ shoe.name }}</p>
-<p>Brand: {{ shoe.brand }}</p>
 <p>Size: {{ shoe.size }}</p>
 <p>Colorway: {{ shoe.colorway }}</p>
 <p>Description: {{ shoe.description }}</p>
