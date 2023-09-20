@@ -23,7 +23,7 @@ def about(request):
 def search_shoes(request):
    if request.method == "POST":
       searched = request.POST['searched']
-      shoes = Shoe.objects.filter(name__contains=searched)
+      shoes = Shoe.objects.filter(name__icontains=searched)
       return render(request, 'shoes/search_shoes.html', {'searched':searched, 'shoes':shoes})
    else: 
       return render(request, 'shoes/search_shoes.html', {})
