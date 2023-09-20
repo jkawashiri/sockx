@@ -16,7 +16,7 @@
     <header>
       <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}"><img  id="logo" src="static/images/SOCK.svg" alt="SockX logo"></a>
+            <a class="navbar-brand" href="{% url 'home' %}"><img  id="logo" src="/static/images/SOCK.svg" alt="SockX logo"></a>
             <a class="navbar-brand" href="{% url 'about' %}">About</a>
             {% if user.is_authenticated %}
                 <a class="navbar-brand" href="{% url 'shoes_create' %}">Add a Shoe</a>
