@@ -7,6 +7,13 @@
   <div class="card">
     <a href="{% url 'detail' shoe.id %}" class="index">
       <div class="card-content">
+        {% if shoe.photo_set.all %}
+            {% for photo in shoe.photo_set.all %}
+                <img src="{{photo.url}}" height="200vh" width="200vw">
+            {% endfor %}
+        {% else %}
+            No photos uploaded 
+        {% endif %}
         <p>User: {{ shoe.user }}</p>
         <p>Name: {{ shoe.name }}</p>
         <p>Brand: {{ shoe.brand }}</p>
