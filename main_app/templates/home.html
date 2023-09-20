@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Home</h1>
+<h1>All Shoes</h1>
 
 {% for shoe in object_list %}
   <div class="card">
     <a href="{% url 'detail' shoe.id %}" class="index">
       <div class="card-content">
-        <p>User: {{ shoe.user }}</p>
         <p>Name: {{ shoe.name }}</p>
         <p>Brand: {{ shoe.brand }}</p>
         <p>Size: {{ shoe.size }}</p>
-        <p>Colorway: {{ shoe.colorway }}</p>
-        <p>Description: {{ shoe.description }}</p>
-        <p>Release Date: {{ shoe.release_date }}</p>
         <p>Price: ${{ shoe.price }}</p>
       </div>
     </a>

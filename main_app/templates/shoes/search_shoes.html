@@ -7,7 +7,7 @@
         <h1>Browse results for {{ searched }}</h1>
         <br/>
         {% for shoe in shoes %}
-             {{ shoe }}<br/>
+             <a href="{% url 'detail' shoe.id %}">{{ shoe }}</a><br/>
         {% endfor %}
          
 
