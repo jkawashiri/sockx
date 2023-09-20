@@ -54,7 +54,9 @@
                     <td>{{review.rating}}</td>
                     <td>{{review.review}}</td>
                     {% if user == review.user %}
-                    <td><button><a href="{% url 'delete_review' shoe.id review.id %}">X</a></button></td>
+                        <td><button><a href="{% url 'delete_review' shoe.id review.id %}">X</a></button></td>
+                    {% else %}
+                        <td></td>
                     {% endif %}
                 </tr>
             {% endfor %}
