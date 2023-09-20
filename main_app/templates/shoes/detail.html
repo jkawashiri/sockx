@@ -6,8 +6,9 @@
 {% for photo in shoe.photo_set.all %}
     <img src="{{photo.url}}" height="500vh" width="500vw">
 {% empty %}
-    <div>No Photos Uploaded</div>
+    <strong>No Photos Uploaded</strong>
 {% endfor %}
+
 <p>User: {{ shoe.user }}</p>
 <p>Size: {{ shoe.size }}</p>
 <p>Colorway: {{ shoe.colorway }}</p>
@@ -18,12 +19,15 @@
     <button><a href="{% url 'shoes_update' shoe.id %}">EDIT</a></button>
     <button><a href="{% url 'shoes_delete' shoe.id %}">DELETE</a></button>
 
-
- <form action="{% url 'add_photo' shoe.id %}" enctype="multipart/form-data" method="POST">
-    {% csrf_token %}
-    
+<br><br>
+<form action="{% url 'add_photo' shoe.id %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        <input type="file" name="photo-file">
+        <br><br>
+        <button type="submit" class="btn">Upload Photo</button>
 </form>
 {% endif %}
+
 <br>
 <div class="table-responsive-md">
     <table class="table table-bordered">
