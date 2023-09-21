@@ -46,16 +46,12 @@ class Shoe(models.Model):
     release_date = models.DateField('Release Date')
     price = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(default=timezone.now)
 
     def __str__(self):
         return f'{self.name} - Click here for details'
     
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
-    
-    class Meta:
-        ordering = ['-date']
     
 class Review(models.Model):
     review = models.TextField(max_length=200)
