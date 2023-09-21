@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .forms import ReviewForm, BidForm
+from django.db.models import Q
 
 # Create your views here.
 class Home(ListView):
@@ -23,9 +24,8 @@ def about(request):
 def search_shoes(request):
    if request.method == "POST":
       searched = request.POST['searched']
-      shoes = Shoe.objects.filter(name__icontains=searched)
-      brand = Shoe.objects.filter(brand__icontains=searched)
-      return render(request, 'shoes/search_shoes.html', {'searched':searched, 'shoes':shoes, 'brand':brand})
+      shoes = Shoe.objects.filter(Q(name__icontains=searched) | Q(brand__icontains=searched))
+      return render(request, 'shoes/search_shoes.html', {'searched':searched, 'shoes':shoes})
    else: 
       return render(request, 'shoes/search_shoes.html', {})
 
