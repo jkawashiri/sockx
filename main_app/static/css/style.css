@@ -1,0 +1,31 @@
+nav {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.newFont {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.newAnchor {
+    color: #276143;
+}
+
+header {
+    background-color: lightgray;
+}
+
+.page-footer {
+    float: right;
+}
+
+body {
+    background-color: #276143;
+}
+
+.container {
+    background-color: white;
+}
+
+h1 {
+    text-align: center;
+}
