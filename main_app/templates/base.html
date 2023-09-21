@@ -24,8 +24,8 @@
                 <a class="navbar-brand" href="{% url 'index' %}">My Shoes</a>
                 <button class="btn btn-danger"><a class="login" href="{% url 'logout' %}">Log Out</a></button>
             {% else %}
-                <button class="btn btn-success"><a class="navbar-brand" href="{% url 'signup' %}">Sign Up</a></button>
-                <button class="btn btn-success"><a class="navbar-brand" href="{% url 'login' %}">Log In</a></button>
+                <button class="btn btn-success"><a class="login href="{% url 'signup' %}">Sign Up</a></button>
+                <button class="btn btn-success"><a class="login" href="{% url 'login' %}">Log In</a></button>
             {% endif %}
             <form class="d-flex" method="POST" action="{% url 'search_shoes' %}">
               {% csrf_token %}
