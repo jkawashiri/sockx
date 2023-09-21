@@ -18,7 +18,7 @@ header {
     float: right;
 }
 
-body {
+body.body {
     background-color: #276143;
 }
 
@@ -28,4 +28,17 @@ body {
 
 h1 {
     text-align: center;
+}
+
+a.navbar-brand:hover {
+    color: #276143;
+}
+
+.login {
+    text-decoration: none;
+    color: black;
+}
+
+.login:hover {
+    color: black;
 }
