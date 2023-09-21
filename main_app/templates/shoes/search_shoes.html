@@ -6,10 +6,36 @@
 
         <h1>Browse results for {{ searched }}</h1>
         <br/>
+        <div class="row row-cols-1 row-cols-md-2 g-4"></div>
         {% for shoe in shoes %}
-             <a href="{% url 'detail' shoe.id %}">{{ shoe }}</a><br/>
+            <div class="col">
+                <div class="col-sm-4 my-4">
+                    <div class="row-cols-3">
+                    <div class="card" style="width: 18rem">
+                        <div class="card-body">
+                        <div class="card-content">
+                            {% if shoe.photo_set.all %}
+                                {% for photo in shoe.photo_set.all %}
+                                    <img src="{{photo.url}}" class="card-img-top" height="200vh" width="200vw">
+                                {% endfor %}
+                            {% else %}
+                                No photos uploaded 
+                            {% endif %}
+                            <div class="card-body">
+                            <p class="card-title">Brand: {{ shoe.brand }}</p>
+                            <p class="card-title">Name: {{ shoe.name }}</p>
+                            <p class="card-text">Size: {{ shoe.size }}</p>
+                            <p class="card-text">Price: ${{ shoe.price }}</p>
+                            <button class="btn btn-light"><a class="newAnchor" href="{% url 'detail' shoe.id %}">More Details</a></button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-         
+        </div>
 
     {% else %}
 
