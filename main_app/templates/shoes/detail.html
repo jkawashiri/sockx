@@ -16,10 +16,10 @@
 <p>Release Date: {{ shoe.release_date }}</p>
 <p>Price: ${{ shoe.price }}</p>
 {% if user == shoe.user %}
-    <button class="btn btn-light"><a href="{% url 'shoes_update' shoe.id %}">EDIT</a></button>
+    <button class="btn btn-light"><a class="newAnchor" href="{% url 'shoes_update' shoe.id %}">EDIT</a></button>
     <br>
     <br>
-    <button class="btn btn-light"><a href="{% url 'shoes_delete' shoe.id %}">DELETE</a></button>
+    <button class="btn btn-light"><a class="newAnchor" href="{% url 'shoes_delete' shoe.id %}">DELETE</a></button>
 
 <br><br>
 {% endif %}
