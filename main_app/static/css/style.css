@@ -43,3 +43,7 @@ a.navbar-brand:hover {
 .login:hover {
     color: black;
 }
+
+a.newAnchor:hover {
+    color: #276143;
+}
