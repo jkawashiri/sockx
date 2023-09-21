@@ -133,4 +133,3 @@ def add_photo(request, shoe_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('detail', pk=shoe_id)
-
