@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<h1>{{ shoe.brand }} {{ shoe.name }}</h1>
+<br>
+<h1 class="newFont">{{ shoe.brand }} {{ shoe.name }}</h1>
 
 {% for photo in shoe.photo_set.all %}
     <img src="{{photo.url}}" height="500vh" width="500vw">
@@ -16,15 +16,17 @@
 <p>Release Date: {{ shoe.release_date }}</p>
 <p>Price: ${{ shoe.price }}</p>
 {% if user == shoe.user %}
-    <button><a href="{% url 'shoes_update' shoe.id %}">EDIT</a></button>
-    <button><a href="{% url 'shoes_delete' shoe.id %}">DELETE</a></button>
+    <button class="btn btn-light"><a href="{% url 'shoes_update' shoe.id %}">EDIT</a></button>
+    <br>
+    <br>
+    <button class="btn btn-light"><a href="{% url 'shoes_delete' shoe.id %}">DELETE</a></button>
 
 <br><br>
 <form action="{% url 'add_photo' shoe.id %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         <input type="file" name="photo-file">
         <br><br>
-        <button type="submit" class="btn">Upload Photo</button>
+        <input type='submit' value="Upload Photo">
 </form>
 {% endif %}
 
@@ -34,27 +36,27 @@
         <form action="{% url 'add_review' shoe.id %}" method="POST">
             {% csrf_token %}
             {{ review_form.as_p }}
-            <input type="submit" value="Add Review">
+            <button class="btn btn-warning" type="submit">Add Review</button>
         </form>
         {% if shoe.review_set.all %}
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th>Date</th>
-                    <th>Rating</th>
                     <th>Review</th>
-                    <th>Delete</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Delete?</th>
                 </tr>
             </thead>
             <tbody>
             {% for review in shoe.review_set.all %}
                 <tr>
-                    <td>{{review.user}}</td>
-                    <td>{{review.date}}</td>
-                    <td>{{review.rating}}</td>
                     <td>{{review.review}}</td>
+                    <td>{{review.rating}}</td>
+                    <td>{{review.date}}</td>
+                    <td>{{review.user}}</td>
                     {% if user == review.user %}
-                        <td><button><a href="{% url 'delete_review' shoe.id review.id %}">X</a></button></td>
+                        <td><button class="btn btn-light"><a href="{% url 'delete_review' shoe.id review.id %}">X</a></button></td>
                     {% else %}
                         <td></td>
                     {% endif %}
@@ -66,41 +68,42 @@
         {% endif %}
     </table>
 </div>
-<table>
-    <form action="{% url 'add_bid' shoe.id %}" method="POST">
-        {% csrf_token %}
-        {{ bid_form.as_p }}
-        <input type="submit" value="Add Bid">
-    </form>
-    {% if shoe.bid_set.all %}
-        <thead>
-            <tr>
-                <th>User</th>
-                <th>Date</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for bid in shoe.bid_set.all %}
-            <tr>
-                <td>{{bid.user}}</td>
-                <td>{{bid.date}}</td>
-                <td>${{bid.amount}}</td>
-                {% if user == bid.user %}
-                <td>
-                    <button>
-                        <a href="{% url 'delete_bid' shoe.id bid.id %}">
-                            X
-                        </a>
-                    </button>
-                </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-        </tbody>
-    {% else %}
-        <div>No Bids Yet</div>
-    {% endif %}
-</table>
-
+<div class="table-responsive-md">
+    <table class="table table-bordered">
+        <form action="{% url 'add_bid' shoe.id %}" method="POST">
+            {% csrf_token %}
+            {{ bid_form.as_p }}
+            <button class="btn btn-success" type="submit">Add Bid</button>
+        </form>
+        {% if shoe.bid_set.all %}
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for bid in shoe.bid_set.all %}
+                <tr>
+                    <td>${{bid.amount}}</td>
+                    <td>{{bid.date}}</td>
+                    <td>{{bid.user}}</td>
+                    {% if user == bid.user %}
+                    <td>
+                        <button>
+                            <a href="{% url 'delete_bid' shoe.id bid.id %}">
+                                X
+                            </a>
+                        </button>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        {% else %}
+            <div>No Bids Yet</div>
+        {% endif %}
+    </table>
+</div>
 {% endblock %}

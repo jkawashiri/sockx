@@ -2,26 +2,30 @@
 {% block content %}
 
 {% if object %}
-    <h1>Edit <span>{{ object.brand }} {{object.name}}</span></h1>
+    <br>
+    <h1 class="newFont">Edit <span>{{ object.brand }} {{object.name}}</span></h1>
     <div class="card-form">
         <form action="" method="POST">
             {% csrf_token %}
             <table class="form-table">
                 {{ form }}
             </table>
-            <input type="submit" value="Save Shoe">
+            <button class="btn btn-success" type="submit">Save Shoe</button>
         </form>
+        <br>
     </div>
 {% else %}
-    <h1>Add Shoe</h1>
+    <br>
+    <h1 class="newFont">Add Shoe</h1>
     <div class="card-form">
         <form action="" method="POST">
             {% csrf_token %}
             <table class="form-table">
                 {{ form }}
             </table>
-            <input type="submit" value="Add Shoe">
+            <button class="btn btn-success" type="submit">Add Shoe</button>
         </form>
+        <br>
     </div>
 {% endif %}
 
