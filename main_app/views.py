@@ -56,19 +56,18 @@ class ShoeCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         response = super().form_valid(form)
 
-        photo_files = self.request.FILES.getlist('photo-file', None)
-        for photo_file in photo_files:
-            if photo_file:
-                s3 = boto3.client('s3')
-                key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-                try:
-                    bucket = os.environ['S3_BUCKET']
-                    s3.upload_fileobj(photo_file, bucket, key)
-                    url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-                    self.object.photo_set.create(url=url)
-                except Exception as e:
-                    print('An error occurred uploading file to S3')
-                    print(e)
+        photo_file = self.request.FILES.get('photo-file', None)
+        if photo_file:
+            s3 = boto3.client('s3')
+            key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+            try:
+                bucket = os.environ['S3_BUCKET']
+                s3.upload_fileobj(photo_file, bucket, key)
+                url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+                self.object.photo_set.create(url=url)
+            except Exception as e:
+                print('An error occurred uploading file to S3')
+                print(e)
         return response
     
 class ShoeUpdate(UpdateView):
