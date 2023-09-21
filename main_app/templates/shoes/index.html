@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>My Shoes</h1>
+<br>
+<h1 class="newFont">My Shoes</h1>
 
-{% for shoe in object_list %}
-  <div class="card">
-    <a href="{% url 'detail' shoe.id %}" class="index">
+<div class="row row-cols-1 row-cols-md-2 g-2">
+  {% for shoe in object_list %}
+    <div class="card">
       <div class="card-content">
         {% if shoe.photo_set.all %}
             {% for photo in shoe.photo_set.all %}
-                <img src="{{photo.url}}" height="200vh" width="200vw">
+              <img class="center-block" src="{{photo.url}}" height="300vh" width="300vw">
             {% endfor %}
         {% else %}
             No photos uploaded 
@@ -22,9 +23,11 @@
         <p>Description: {{ shoe.description }}</p>
         <p>Release Date: {{ shoe.release_date }}</p>
         <p>Price: ${{ shoe.price }}</p>
+        <button class="btn btn-light"><a class="newAnchor" href="{% url 'detail' shoe.id %}" >Edit Details</a></button>
       </div>
-    </a>
-  </div>
-{% endfor %}
+    </div>
+        
+  {% endfor %}
+</div>
 
 {% endblock %}
