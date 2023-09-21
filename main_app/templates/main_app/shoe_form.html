@@ -15,11 +15,12 @@
 {% else %}
     <h1>Add Shoe</h1>
     <div class="card-form">
-        <form action="" method="POST">
+        <form action="{% url 'shoes_create' %}" enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             <table class="form-table">
                 {{ form }}
             </table>
+            <br><input type="file" name="photo-file"><br><br>
             <input type="submit" value="Add Shoe">
         </form>
     </div>

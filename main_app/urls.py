@@ -15,5 +15,4 @@ urlpatterns = [
     path('shoes/<int:shoe_id>/add_bid/', views.add_bid, name='add_bid'),
     path('shoes/<int:shoe_id>/delete_bid/<int:bid_id>/', views.delete_bid, name='delete_bid'),
     path('search_shoes', views.search_shoes, name='search_shoes'),
-    path('shoes/<int:shoe_id>/add_photo/', views.add_photo, name='add_photo'),
 ]

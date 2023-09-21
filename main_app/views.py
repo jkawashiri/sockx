@@ -43,22 +43,33 @@ class ShoeDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # shoe = self.object
-        # id_list = shoe.products.all().values_list('id')
-        # unrelated_products = Product.objects.exclude(id__in=id_list)
         context['review_form'] = ReviewForm()
         context['bid_form'] = BidForm()
-        # context['products'] = unrelated_products
         return context
-    
+
 class ShoeCreate(LoginRequiredMixin, CreateView):
     model = Shoe
     fields = ['name', 'brand', 'size', 'colorway', 'description', 'release_date', 'price']
     success_url = '/shoes'
 
     def form_valid(self, form):
-       form.instance.user = self.request.user
-       return super().form_valid(form)
+        form.instance.user = self.request.user
+        response = super().form_valid(form)
+
+        photo_files = self.request.FILES.getlist('photo-file', None)
+        for photo_file in photo_files:
+            if photo_file:
+                s3 = boto3.client('s3')
+                key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+                try:
+                    bucket = os.environ['S3_BUCKET']
+                    s3.upload_fileobj(photo_file, bucket, key)
+                    url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+                    self.object.photo_set.create(url=url)
+                except Exception as e:
+                    print('An error occurred uploading file to S3')
+                    print(e)
+        return response
     
 class ShoeUpdate(UpdateView):
    model = Shoe
@@ -118,18 +129,3 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
-
-def add_photo(request, shoe_id):
-    photo_file = request.FILES.get('photo-file', None)
-    if photo_file:
-        s3 = boto3.client('s3')
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        try:
-            bucket = os.environ['S3_BUCKET']
-            s3.upload_fileobj(photo_file, bucket, key)
-            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-            Photo.objects.create(url=url, shoe_id=shoe_id)
-        except Exception as e:
-            print('An error occurred uploading file to S3')
-            print(e)
-    return redirect('detail', pk=shoe_id)
