@@ -47,3 +47,7 @@ a.navbar-brand:hover {
 a.newAnchor:hover {
     color: #276143;
 }
+
+h3.center-text {
+    text-align: center;
+}
