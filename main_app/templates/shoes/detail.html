@@ -16,11 +16,13 @@
 <p>Release Date: {{ shoe.release_date }}</p>
 <p>Price: ${{ shoe.price }}</p>
 {% if user == shoe.user %}
-    <button class="btn btn-light"><a class="newAnchor" href="{% url 'shoes_update' shoe.id %}">EDIT</a></button>
-    <br>
-    <br>
-    <button class="btn btn-light"><a class="newAnchor" href="{% url 'shoes_delete' shoe.id %}">DELETE</a></button>
-
+    <button class="btn btn-light">
+        <a class="newAnchor" href="{% url 'shoes_update' shoe.id %}">EDIT</a>
+    </button>
+    <br><br>
+    <button class="btn btn-light">
+        <a class="newAnchor" href="{% url 'shoes_delete' shoe.id %}">DELETE</a>
+    </button>
 <br><br>
 {% endif %}
 
@@ -50,7 +52,9 @@
                     <td>{{review.date}}</td>
                     <td>{{review.user}}</td>
                     {% if user == review.user %}
-                        <td><button class="btn btn-light"><a href="{% url 'delete_review' shoe.id review.id %}">X</a></button></td>
+                        <td><button class="btn btn-light">
+                            <a href="{% url 'delete_review' shoe.id review.id %}">X</a>
+                        </button></td>
                     {% else %}
                         <td></td>
                     {% endif %}
@@ -84,13 +88,9 @@
                     <td>{{bid.date}}</td>
                     <td>{{bid.user}}</td>
                     {% if user == bid.user %}
-                    <td>
-                        <button>
-                            <a href="{% url 'delete_bid' shoe.id bid.id %}">
-                                X
-                            </a>
-                        </button>
-                    </td>
+                        <td><button class="btn btn-light">
+                            <a href="{% url 'delete_bid' shoe.id bid.id %}">X</a>
+                        </button></td>
                     {% endif %}
                 </tr>
             {% endfor %}
