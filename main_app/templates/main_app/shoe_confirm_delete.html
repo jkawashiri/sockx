@@ -3,13 +3,15 @@
 
 <h1 class="newFont">Delete {{ object.brand }} {{ object.name }}</h1>
 
-  <h4 class="newFont">Are you sure you want to delete <span class="teal-text">{{ object.brand }} {{ object.name }}</span>?</h4>
+<h4 class="newFont">Are you sure you want to delete <span class="teal-text">{{ object.brand }} {{ object.name }}</span>?</h4>
 
-  <form action="" method="POST">
-    {% csrf_token %}
-    <button class="btn btn-danger" type="submit">Yes - Delete!</button>
-    <button class="btn btn-light"><a class="newAnchor" href="{% url 'detail' shoe.id %}">Cancel</a></button>
-  </form>
-  <br>
+<form action="" method="POST">
+  {% csrf_token %}
+  <button class="btn btn-danger" type="submit">Yes - Delete!</button>
+  <button class="btn btn-light">
+    <a class="newAnchor" href="{% url 'detail' shoe.id %}">Cancel</a>
+  </button>
+</form>
+<br>
 
 {% endblock %}

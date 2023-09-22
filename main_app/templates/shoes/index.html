@@ -23,12 +23,12 @@
         <p>Description: {{ shoe.description }}</p>
         <p>Release Date: {{ shoe.release_date }}</p>
         <p>Price: ${{ shoe.price }}</p>
-        <button class="btn btn-light"><a class="newAnchor" href="{% url 'detail' shoe.id %}" >Edit Details</a></button>
-        <br>
-        <br>
+        <button class="btn btn-light">
+            <a class="newAnchor" href="{% url 'detail' shoe.id %}" >Edit Details</a>
+        </button>
+        <br><br>
       </div>
     </div>
-        
   {% endfor %}
 </div>
 

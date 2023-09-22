@@ -71,7 +71,7 @@ class ShoeCreate(LoginRequiredMixin, CreateView):
                 print(e)
         return response
     
-class ShoeUpdate(UpdateView):
+class ShoeUpdate(LoginRequiredMixin, UpdateView):
    model = Shoe
    fields = ['name', 'brand', 'size', 'colorway', 'description', 'release_date', 'price']
 
@@ -80,7 +80,7 @@ class ShoeUpdate(UpdateView):
       form.fields['size'].initial = self.object.size
       return form
 
-class ShoeDelete(DeleteView):
+class ShoeDelete(LoginRequiredMixin, DeleteView):
    model = Shoe
    success_url = '/shoes'
 
