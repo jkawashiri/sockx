@@ -21,7 +21,7 @@ Detail Page:
 - PostgreSQl
 
 # Getting Started
-Click [here]() to view our app. From there you are free to browse different shoes, leave reviews for shoes you like (or don't like), and bid on shoes you might want to purchase. Also feel free to post your own shoes!
+Click [here](https://sockx-e69f458351d2.herokuapp.com/) to view our app. From there you are free to browse different shoes, leave reviews for shoes you like (or don't like), and bid on shoes you might want to purchase. Also feel free to post your own shoes!
 
 # Next Steps
 - Add a timer for the bids so that bidders have a time limit
